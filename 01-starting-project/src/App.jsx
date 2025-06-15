@@ -6,11 +6,8 @@ import { useState } from "react";
 import TopicContent from "./components/TopicContent/TopicContent.jsx";
 
 function App() {
+  const topics = ["components", "jsx", "props", "state"];
   const [selectedTopic, setSelectedTopic] = useState();
-
-  function handleSelect(selectedButton) {
-    setSelectedTopic(selectedButton);
-  }
 
   return (
     <div>
@@ -19,39 +16,25 @@ function App() {
         <section id="core-concepts">
           <h2>Core Concepts</h2>
           <ul>
-            {<CoreConcepts {...CORE_CONCEPTS[0]} />}
-            {<CoreConcepts {...CORE_CONCEPTS[1]} />}
-            {<CoreConcepts {...CORE_CONCEPTS[2]} />}
-            {<CoreConcepts {...CORE_CONCEPTS[3]} />}
+            {CORE_CONCEPTS.map((concept) => (
+              <CoreConcepts key={concept.title} {...concept} />
+            ))}
           </ul>
         </section>
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton
-              isActive={selectedTopic === "components"}
-              onSelect={() => handleSelect("components")}
-            >
-              Components
-            </TabButton>
-            <TabButton
-              isActive={selectedTopic === "jsx"}
-              onSelect={() => handleSelect("jsx")}
-            >
-              JSX
-            </TabButton>
-            <TabButton
-              isActive={selectedTopic === "props"}
-              onSelect={() => handleSelect("props")}
-            >
-              Props
-            </TabButton>
-            <TabButton
-              isActive={selectedTopic === "state"}
-              onSelect={() => handleSelect("state")}
-            >
-              State
-            </TabButton>
+            {topics.map((topic, index) => {
+              return (
+                <TabButton
+                  key={index}
+                  isActive={selectedTopic === topic}
+                  onSelect={() => setSelectedTopic(topic)}
+                >
+                  {topic}
+                </TabButton>
+              );
+            })}
           </menu>
           <TopicContent topic={selectedTopic} />
         </section>
