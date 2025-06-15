@@ -1,21 +1,21 @@
 import { useState } from "react";
 import TabButton from "../tabButton/TabButton";
 import TopicContent from "../topicContent/TopicContent";
+import Section from "../section/Section";
 
 export default function Examples() {
   const topics = ["components", "jsx", "props", "state"];
   const [selectedTopic, setSelectedTopic] = useState();
 
   return (
-    <section id="examples">
-      <h2>Examples</h2>
+    <Section title={"Examples"} id="examples">
       <menu>
         {topics.map((topic, index) => {
           return (
             <TabButton
               key={index}
               isActive={selectedTopic === topic}
-              onSelect={() => setSelectedTopic(topic)}
+              onClick={() => setSelectedTopic(topic)}
             >
               {topic}
             </TabButton>
@@ -23,6 +23,6 @@ export default function Examples() {
         })}
       </menu>
       <TopicContent topic={selectedTopic} />
-    </section>
+    </Section>
   );
 }
